@@ -41,6 +41,15 @@ class ProductsRepository {
     );
   }
 
+  Future<void> updateProduct(Product product) {
+    final ref = _productRef(product.id);
+    return ref.set(product);
+  }
+
+  Future<void> deleteProduct(ProductID id) {
+    return _firestore.doc(productPath(id)).delete();
+  }
+
   DocumentReference<Product> _productRef(ProductID id) =>
       _firestore.doc(productPath(id)).withConverter(
             fromFirestore: (doc, _) => Product.fromMap(doc.data()!),

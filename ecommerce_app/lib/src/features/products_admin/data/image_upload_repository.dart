@@ -2,6 +2,7 @@ import 'package:ecommerce_app/src/features/products/domain/product.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/services.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:sembast/sembast.dart';
 
 part 'image_upload_repository.g.dart';
 
@@ -35,6 +36,11 @@ class ImageUploadRepository {
       bytes,
       SettableMetadata(contentType: 'image/jpeg'),
     );
+  }
+
+  /// Delete the product image from Firebase storage
+  Future<void> deleteProductImage(String imageUrl) {
+    return _storage.refFromURL(imageUrl).delete();
   }
 }
 
